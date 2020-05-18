@@ -4,13 +4,9 @@ import org.springframework.data.annotation.Id;
 
 import java.util.List;
 
-public class Product {
+public class Day {
+
     @Id
     private String id;
-
-    private String name;
-    private List<Vitamin> vitamins;
-    private CountType countType;
-    private int count;
-
+    private List<DayItem> items;
 }

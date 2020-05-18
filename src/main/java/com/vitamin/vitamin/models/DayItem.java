@@ -2,15 +2,10 @@ package com.vitamin.vitamin.models;
 
 import org.springframework.data.annotation.Id;
 
-import java.util.List;
-
-public class Product {
+public class DayItem {
     @Id
     private String id;
 
-    private String name;
-    private List<Vitamin> vitamins;
-    private CountType countType;
+    private String productId;
     private int count;
-
 }

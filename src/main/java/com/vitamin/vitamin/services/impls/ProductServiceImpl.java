@@ -6,9 +6,13 @@ import com.vitamin.vitamin.repositories.ProductRepository;
 import com.vitamin.vitamin.repositories.VitaminRepository;
 import com.vitamin.vitamin.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-import java.util.UUID;
+import javax.transaction.Transactional;
+import java.util.List;
 
+@Service
+@Transactional
 public class ProductServiceImpl implements ProductService {
 
     @Autowired
@@ -17,12 +21,11 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product save(Product product) {
-        product.setId(UUID.randomUUID().toString());
         return productRepository.save(product);
     }
 
     @Override
-    public Product update(String id, Product product) {
+    public Product update(long id, Product product) {
         if(productRepository.existsById(id)) {
             product.setId(id);
             return productRepository.save(product);
@@ -32,12 +35,23 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product findById(String id) {
-        return null;
+    public List<Product> findAll() {
+        return productRepository.findAll();
     }
 
     @Override
-    public void deleteById(String id) {
+    public Product findById(long id) {
+       return productRepository.findById(id).orElseThrow(
+                ()-> new RuntimeException("ProductNotFound by id"));
+    }
+
+    @Override
+    public void deleteById(long id) {
+        if (productRepository.existsById(id)) {
+            productRepository.deleteById(id);
+        } else {
+            throw new RuntimeException("ProductNotFound by id");
+        }
 
     }
 }

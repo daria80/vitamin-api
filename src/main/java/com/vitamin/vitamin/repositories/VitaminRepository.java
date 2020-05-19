@@ -1,7 +1,9 @@
 package com.vitamin.vitamin.repositories;
 
 import com.vitamin.vitamin.models.Vitamin;
-import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface VitaminRepository extends MongoRepository<Vitamin, String> {
+@Repository
+public interface VitaminRepository extends JpaRepository<Vitamin, Long> {
 }

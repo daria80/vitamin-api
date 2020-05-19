@@ -2,12 +2,15 @@ package com.vitamin.vitamin.services.impls;
 
 import com.vitamin.vitamin.models.Day;
 import com.vitamin.vitamin.repositories.DayItemRepository;
+
 import com.vitamin.vitamin.repositories.DayRepository;
 import com.vitamin.vitamin.services.DayService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-import java.util.UUID;
+import java.util.List;
 
+@Service
 public class DayServiceImpl implements DayService {
 
     @Autowired
@@ -16,22 +19,37 @@ public class DayServiceImpl implements DayService {
 
     @Override
     public Day save(Day day) {
-        day.setId(UUID.randomUUID().toString());
-        return null;
+        return dayRepository.save(day);
     }
 
     @Override
-    public Day update(String id, Day day) {
-        return null;
+    public Day update(long id, Day day) {
+        if(dayRepository.existsById(id)) {
+            day.setId(id);
+            return dayRepository.save(day);
+        } else {
+            throw new RuntimeException("DayNotFound by id");
+        }
     }
 
     @Override
-    public Day findById(String id) {
-        return null;
+    public List<Day> findAll() {
+        return dayRepository.findAll();
     }
 
     @Override
-    public void deleteById(String id) {
+    public Day findById(long id) {
+        return dayRepository.findById(id).orElseThrow(
+                ()-> new RuntimeException("DayNotFound by id"));
+    }
+
+    @Override
+    public void deleteById(long id) {
+        if(dayRepository.existsById(id)) {
+            dayRepository.deleteById(id);
+        } else {
+            throw new RuntimeException("DayNotFound by id");
+        }
 
     }
 }

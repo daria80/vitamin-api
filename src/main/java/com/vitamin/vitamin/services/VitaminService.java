@@ -1,15 +1,20 @@
 package com.vitamin.vitamin.services;
 
 import com.vitamin.vitamin.models.Vitamin;
+import com.vitamin.vitamin.transfers.VitaminRequest;
+
+import java.util.List;
 
 public interface VitaminService {
 
-    Vitamin save(Vitamin vitamin);
+    Vitamin save(VitaminRequest vitamin);
 
-    Vitamin update(String id, Vitamin vitamin);
+    Vitamin update(long id, Vitamin vitamin);
 
-    Vitamin findById(String id);
+    List<Vitamin> findAll();
 
-    void deleteById(String id);
+    Vitamin findById(long id);
+
+    void deleteById(long id);
 
 }

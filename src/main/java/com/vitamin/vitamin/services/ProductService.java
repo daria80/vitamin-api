@@ -1,17 +1,19 @@
 package com.vitamin.vitamin.services;
 
 import com.vitamin.vitamin.models.Product;
-import com.vitamin.vitamin.models.Vitamin;
+import java.util.List;
 
 public interface ProductService {
 
     Product save(Product product);
 
-    Product update(String id, Product product);
+    Product update(long id, Product product);
 
-    Product findById(String id);
+    List<Product> findAll();
 
-    void deleteById(String id);
+    Product findById(long id);
+
+    void deleteById(long id);
 
 
 }

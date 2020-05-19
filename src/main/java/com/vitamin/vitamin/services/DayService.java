@@ -1,16 +1,19 @@
 package com.vitamin.vitamin.services;
 
-import com.vitamin.vitamin.models.Product;
+import com.vitamin.vitamin.models.Day;
+import java.util.List;
 
 public interface DayService {
 
-    DayService save(DayService dayService);
+    Day save(Day day);
 
-    DayService update(String id, DayService dayService);
+    Day update(long id, Day day);
 
-    DayService findById(String id);
+    List<Day> findAll();
 
-    void deleteById(String id);
+    Day findById(long id);
+
+    void deleteById(long id);
 
 
 }

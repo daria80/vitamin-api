@@ -1,19 +1,24 @@
 package com.vitamin.vitamin.models;
 
 import lombok.Data;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-
+import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
+@Entity
 @Data
-@Document
+@Table(name = "products")
 public class Product {
+
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
 
     private String name;
-    private List<Vitamin> vitamins;
+
+    @OneToMany(mappedBy="product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Vitamin> vitamins = new ArrayList<>();
+
     private CountType countType;
     private int count;
 

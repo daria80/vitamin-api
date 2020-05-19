@@ -1,19 +1,19 @@
 package com.vitamin.vitamin.services;
 
-import com.vitamin.vitamin.models.Product;
 import com.vitamin.vitamin.models.User;
-
 import java.util.List;
 
 public interface UserService {
 
     User save(User user);
 
-    User update(String id, User user);
+    User update(long id, User user);
 
-    User findById(String id);
+    List<User> findAll();
 
-    void deleteById(String id);
+    User findById(long id);
+
+    void deleteById(long id);
 
 
 }

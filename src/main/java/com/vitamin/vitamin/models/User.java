@@ -1,16 +1,16 @@
 package com.vitamin.vitamin.models;
 
 import lombok.Data;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+import javax.persistence.*;
 
-import java.util.List;
-
+@Entity
+@Table(name = "users")
 @Data
-@Document
 public class User {
+
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
 
     private String username;
     private String email;

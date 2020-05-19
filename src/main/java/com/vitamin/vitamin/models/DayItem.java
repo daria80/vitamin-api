@@ -1,11 +1,21 @@
 package com.vitamin.vitamin.models;
 
-import org.springframework.data.annotation.Id;
+import lombok.Data;
+import javax.persistence.*;
 
+@Entity
+@Table(name="day_items")
+@Data
 public class DayItem {
+
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
 
     private String productId;
     private int count;
+
+    @ManyToOne(optional=false, cascade=CascadeType.ALL)
+    @JoinColumn(name="day_id")
+    private Day day;
 }

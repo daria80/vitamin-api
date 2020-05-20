@@ -1,11 +1,9 @@
 package com.vitamin.vitamin.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "vitamins")
@@ -23,8 +21,8 @@ public class Vitamin {
     private int norma;
 
     @ManyToOne
-    @JoinColumn(name = "product_id")
-//    @ManyToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "product_id", referencedColumnName = "id")
+    @JoinColumn(name = "productId", referencedColumnName = "id")
+    @EqualsAndHashCode.Exclude
     private Product product;
+
 }

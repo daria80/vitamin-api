@@ -7,14 +7,18 @@ import com.vitamin.vitamin.transfers.VitaminResponse;
 
 public class VitaminConverter {
 
+    // принимаем модель vitamin и преобразовываем в VitaminResponse(dto)-то что отправляем пользователю(клиенту)
+
     public static VitaminResponse toResponse(Vitamin vitamin) {
         return VitaminResponse.builder()
                 .id(vitamin.getId())
                 .name(vitamin.getName())
                 .norma(vitamin.getNorma())
-                .product(vitamin.getProduct())
+                .productId(vitamin.getProduct().getId())
                 .build();
     }
+
+    // то что отправил пользователь преобразовываем(mapping) в модель
 
     public static Vitamin toModel(VitaminRequest vitamin) {
         Product product =  new Product();

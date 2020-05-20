@@ -34,6 +34,7 @@ public class VitaminServiceImpl implements VitaminService {
         Vitamin entity = VitaminConverter.toModel(vitamin);
         entity.setProduct(product);
         Vitamin v = vitaminRepository.save(entity);
+        System.out.println(v);
         return v;
     }
 

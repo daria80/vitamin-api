@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/vitamins")
@@ -24,17 +25,21 @@ public class VitaminController {
     private Mapper mapper;
 
     @PostMapping// create a vitamin
-    public ResponseEntity<?> save (@RequestBody VitaminRequest vitamin) {
-        return ResponseEntity.ok(VitaminConverter.toResponse(vitaminService.save(vitamin)));
+    public VitaminResponse save(@RequestBody VitaminRequest vitamin) {
+        return VitaminConverter.toResponse(vitaminService.save(vitamin));
     }
 
     @PostMapping ("/{id}")// update the vitamin by id
-    public Vitamin update (@PathVariable long id,@RequestBody Vitamin vitamin) {
+    public Vitamin update(@PathVariable long id,@RequestBody Vitamin vitamin) {
         return vitaminService.update(id,vitamin);
     }
 
     @GetMapping// read all vitamins
-    public List<Vitamin> findAll() { return  vitaminService.findAll();}
+    public List<VitaminResponse> findAll() {
+        return  vitaminService.findAll().stream()
+                .map(VitaminConverter::toResponse)
+                .collect(Collectors.toList());
+    }
 
     @GetMapping ("/{id}")// read the vitamin by id
     public Vitamin findById(@PathVariable long id) {

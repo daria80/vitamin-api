@@ -1,9 +1,11 @@
 package com.vitamin.vitamin.models;
 
 import lombok.Data;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Data
@@ -16,8 +18,8 @@ public class Product {
 
     private String name;
 
-    @OneToMany(mappedBy="product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Vitamin> vitamins = new ArrayList<>();
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "product")
+    private List<Vitamin> vitamins;
 
     private CountType countType;
     private int count;

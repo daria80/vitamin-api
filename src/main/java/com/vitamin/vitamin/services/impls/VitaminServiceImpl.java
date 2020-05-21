@@ -1,12 +1,12 @@
 package com.vitamin.vitamin.services.impls;
 
+import com.vitamin.vitamin.exceptions.ProductNotFoundException;
+import com.vitamin.vitamin.exceptions.VitaminNotFoundException;
 import com.vitamin.vitamin.models.Product;
 import com.vitamin.vitamin.models.Vitamin;
 import com.vitamin.vitamin.repositories.ProductRepository;
 import com.vitamin.vitamin.repositories.VitaminRepository;
 import com.vitamin.vitamin.services.VitaminService;
-import com.vitamin.vitamin.transfers.VitaminRequest;
-import com.vitamin.vitamin.utils.converters.VitaminConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,18 +24,15 @@ public class VitaminServiceImpl implements VitaminService {
     private ProductRepository productRepository;
 
     @Override
-    public Vitamin save(VitaminRequest vitamin) {
+    public Vitamin save(Vitamin vitamin) {
 //        Vitamin savedVitamin;
 //        savedVitamin = vitamin;
 //        savedVitamin.setId(vitamin.getId());
 //        return vitaminRepository.save(savedVitamin);
-        Product product = productRepository.findById(vitamin.getProductId()).orElseThrow(
-                ()-> new RuntimeException("ProductNotFound by id"));
-        Vitamin entity = VitaminConverter.toModel(vitamin);
-        entity.setProduct(product);
-        Vitamin v = vitaminRepository.save(entity);
-        System.out.println(v);
-        return v;
+        Product product = productRepository.findById(vitamin.getProduct().getId()).orElseThrow(
+                ()-> new ProductNotFoundException("ProductNotFound by id"));
+        vitamin.setProduct(product);
+        return vitaminRepository.save(vitamin);
     }
 
     @Override
@@ -44,7 +41,7 @@ public class VitaminServiceImpl implements VitaminService {
             vitamin.setId(id);
             return vitaminRepository.save(vitamin);
         } else {
-            throw new RuntimeException("VitaminNotFound by id");
+            throw new VitaminNotFoundException("VitaminNotFound by id");
         }
     }
 
@@ -56,7 +53,7 @@ public class VitaminServiceImpl implements VitaminService {
     @Override
     public Vitamin findById(long id) {
         return vitaminRepository.findById(id).orElseThrow(
-                () -> new RuntimeException("VitaminNotFound by id"));
+                () -> new VitaminNotFoundException("VitaminNotFound by id"));
     }
 
     @Override
@@ -64,7 +61,7 @@ public class VitaminServiceImpl implements VitaminService {
         if (vitaminRepository.existsById(id)) {
             vitaminRepository.deleteById(id);
         } else {
-            throw new RuntimeException("VitaminNotFound by id");
+            throw new VitaminNotFoundException("VitaminNotFound by id");
         }
     }
 }

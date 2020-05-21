@@ -1,5 +1,6 @@
 package com.vitamin.vitamin.services.impls;
 
+import com.vitamin.vitamin.exceptions.ProductNotFoundException;
 import com.vitamin.vitamin.models.Product;
 import com.vitamin.vitamin.models.Vitamin;
 import com.vitamin.vitamin.repositories.ProductRepository;
@@ -30,7 +31,7 @@ public class ProductServiceImpl implements ProductService {
             product.setId(id);
             return productRepository.save(product);
         } else {
-            throw new RuntimeException("ProductNotFound by id");
+            throw new ProductNotFoundException("ProductNotFound by id");
         }
     }
 
@@ -42,7 +43,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product findById(long id) {
        return productRepository.findById(id).orElseThrow(
-                ()-> new RuntimeException("ProductNotFound by id"));
+                ()-> new ProductNotFoundException("ProductNotFound by id"));
     }
 
     @Override
@@ -50,7 +51,7 @@ public class ProductServiceImpl implements ProductService {
         if (productRepository.existsById(id)) {
             productRepository.deleteById(id);
         } else {
-            throw new RuntimeException("ProductNotFound by id");
+            throw new ProductNotFoundException("ProductNotFound by id");
         }
 
     }

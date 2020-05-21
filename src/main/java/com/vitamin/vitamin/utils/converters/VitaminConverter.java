@@ -16,6 +16,12 @@ public class VitaminConverter {
                 .norma(vitamin.getNorma())
                 .productId(vitamin.getProduct().getId())
                 .build();
+//        VitaminResponse vitaminResponse =  new VitaminResponse();
+//        vitaminResponse.setId(vitaminResponse.getId());
+//        vitaminResponse.setName(vitaminResponse.getName());
+//        vitaminResponse.setNorma(vitaminResponse.getNorma());
+//        vitaminResponse.setProductId(vitamin.getProduct().getId());
+//        return vitaminResponse;
     }
 
     // то что отправил пользователь преобразовываем(mapping) в модель

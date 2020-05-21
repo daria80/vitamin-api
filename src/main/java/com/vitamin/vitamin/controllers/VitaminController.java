@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,24 +27,39 @@ public class VitaminController {
 
     @PostMapping// create a vitamin
     public VitaminResponse save(@RequestBody VitaminRequest vitamin) {
-        return VitaminConverter.toResponse(vitaminService.save(vitamin));
+        Vitamin vitamin1 = VitaminConverter.toModel(vitamin);
+        return VitaminConverter.toResponse(vitaminService.save(vitamin1));
     }
 
     @PostMapping ("/{id}")// update the vitamin by id
-    public Vitamin update(@PathVariable long id,@RequestBody Vitamin vitamin) {
-        return vitaminService.update(id,vitamin);
+    public VitaminResponse update(@PathVariable long id,@RequestBody VitaminRequest vitaminRequest) {
+        Vitamin vitamin = VitaminConverter.toModel(vitaminRequest);
+        vitamin = vitaminService.update(id, vitamin);
+        VitaminResponse vitaminResponse = VitaminConverter.toResponse(vitamin);
+        return vitaminResponse;
     }
 
     @GetMapping// read all vitamins
     public List<VitaminResponse> findAll() {
-        return  vitaminService.findAll().stream()
-                .map(VitaminConverter::toResponse)
-                .collect(Collectors.toList());
+//        return  vitaminService.findAll().stream()
+//                //.map(VitaminConverter::toResponse)
+//                .map(vitamin -> VitaminConverter.toResponse(vitamin))
+//                .collect(Collectors.toList());
+        List<VitaminResponse> vitaminResponses = new ArrayList<>();//
+        List<Vitamin> vitamins = vitaminService.findAll();
+
+        for (Vitamin vitamin : vitamins) {
+            VitaminResponse vitaminResponse = VitaminConverter.toResponse(vitamin);
+            vitaminResponses.add(vitaminResponse);
+        }
+        return vitaminResponses;
     }
 
     @GetMapping ("/{id}")// read the vitamin by id
-    public Vitamin findById(@PathVariable long id) {
-        return vitaminService.findById(id);
+    public VitaminResponse findById(@PathVariable long id) {
+        Vitamin vitamin = vitaminService.findById(id);
+        VitaminResponse vitaminResponse = VitaminConverter.toResponse(vitamin);
+        return vitaminResponse;
     }
 
     @DeleteMapping ("/{id}")// delete the vitamin by id

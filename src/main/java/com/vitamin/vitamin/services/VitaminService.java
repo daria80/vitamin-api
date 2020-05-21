@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface VitaminService {
 
-    Vitamin save(VitaminRequest vitamin);
+    Vitamin save(Vitamin vitamin);
 
     Vitamin update(long id, Vitamin vitamin);
 

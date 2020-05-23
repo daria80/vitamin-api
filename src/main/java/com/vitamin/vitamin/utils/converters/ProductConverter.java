@@ -12,6 +12,7 @@ public class ProductConverter {
 
         Product product = new Product();
         product.setId(productRequest.getId());
+        product.setName(productRequest.getName());
         product.setCountType(productRequest.getCount_type());
         product.setCount(productRequest.getCount());
         return product;
@@ -21,10 +22,10 @@ public class ProductConverter {
     public static ProductResponse toResponse(Product product) {
 
         ProductResponse productResponse =  new ProductResponse();
-        productResponse.setId(productResponse.getId());
-        productResponse.setName(productResponse.getName());
-        productResponse.setCount_type(productResponse.getCount_type());
-        productResponse.setCount(productResponse.getCount());
+        productResponse.setId(product.getId());
+        productResponse.setName(product.getName());
+        productResponse.setCount_type(product.getCountType());
+        productResponse.setCount(product.getCount());
         return productResponse;
     }
 

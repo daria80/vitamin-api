@@ -24,7 +24,7 @@ public class ProductController {
         return ProductConverter.toResponse(productService.save(product1));
     }
 
-    @PostMapping("/{id}")// update the product by id
+    @PutMapping("/{id}")// update the product by id
     public ProductResponse update(@PathVariable long id, @RequestBody ProductRequest productRequest) {
         Product product1 = ProductConverter.toModel(productRequest);
         product1 = productService.update(id,product1);
